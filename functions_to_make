@@ -1,0 +1,18 @@
+
+
+
+init_state.m // set state globals, mu, Sigma (use State.Ekf.*)
+init_params.m // ?? find out later
+
+[predMu, predSigma] = motion_prediction (mu, u, dt)
+
+[zhat] = measurement_prediction ( predMu, predSigma )  
+[landmark_ids] = feature_matching ( image )
+[mu, Sigma, map] = update ( predMu, predSigma, landmark_ids )
+
+[map] = map_management ( map ) // add or remove features
+
+
+# miscellaneous
+plotting / evaluation
+camera calibration
