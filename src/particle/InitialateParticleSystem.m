@@ -1,4 +1,4 @@
-%% This function initiate every global variables of the particle system
+%% This function initiate every global variables of the particle intitiateParticleSystem
 
 function intitiateParticleSystem()
 global particleId;     % recording m particles
