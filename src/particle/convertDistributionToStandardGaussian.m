@@ -35,5 +35,6 @@ function [landmarkId, mu, sigma] = convert2StandardGaussian(LandmarkId)
         cov = cov + emex*emex' *  particleProbMatrix(i, bestIndex);
     end
     
+    
     [bestId, mu, cov];
 end
