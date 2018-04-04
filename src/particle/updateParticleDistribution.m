@@ -1,5 +1,5 @@
 %% Update particle distribution of given feature
-function updateParticleDistribution(LandmarkId, posInframe)
+function updateParticleDistribution(LandmarkId, posInFrame)
     global particleId;
     global particlePosMatrix;
     global SigmaFrame;
@@ -11,7 +11,7 @@ function updateParticleDistribution(LandmarkId, posInframe)
     for i = 1:100
         particlePos = (particlePosMatrix(i,3*index-2:3*index))'; % in form [x;y;z] wrt world
         particleInFrame = projection(particlePos);
-        particleProbMatrix(i, index) = particleProbMatrix(i, index) * normpdf(posInframe-particleInFrame, 0, SigmaFrame);
+        particleProbMatrix(i, index) = particleProbMatrix(i, index) * normpdf(posInFrame-particleInFrame, 0, SigmaFrame);
         
     end
     

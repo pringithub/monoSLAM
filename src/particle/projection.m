@@ -1,6 +1,6 @@
 %% Calculate the 2D position of a feature given its 3d position and 
 
-function x = projection(pos)
+function x = projection(posInWorld)
 global cameraType;
 
 global cameraParam;
@@ -14,10 +14,12 @@ global State;
 
 global cameraParam;
 
+yiW = posInWorld;
+
 % the position of a point feature relative to the camera
-% yiW: camera position wrt world
+% yiW: feature position wrt world
 % R_RW: rotation matrix from robot to world coordinate
-% rW: feature positin wrt world
+% rW: robot position wrt world
 h_RL = R_RW * (yiW-rW); % [x y z] position
 
 

@@ -1,4 +1,4 @@
-%% Compute each available feature's standard deviation, and convert the feauture with best-estimated depth distribution to a standard Gaussian one.
+%% Compute each available feature's standard deviation, and convert the feauture with best-estimated depth distribution to a standard Gaussian one. If no features are good enough, return NaN.
 
 function [landmarkId, mu, sigma] = convert2StandardGaussian(LandmarkId)
     global particleId;
@@ -35,6 +35,7 @@ function [landmarkId, mu, sigma] = convert2StandardGaussian(LandmarkId)
         cov = cov + emex*emex' *  particleProbMatrix(i, bestIndex);
     end
     
+    % remove current feature from the system
     
     [bestId, mu, cov];
 end
