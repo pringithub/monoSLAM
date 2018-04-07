@@ -86,9 +86,9 @@ State.Ekf.mu(4:7) = quat_est(State.Ekf.mu(11:13)*dt,State.Ekf.mu(4:7));
 
 function quaternion = qua_est(W,quaternion_prev)
     mag = (sum(W.^2)).^.5;
-     if(mag ~= 0) 
-         sin_mag = sin(mag/2.0)/mag;
-     else
+    if(mag ~= 0) 
+        sin_mag = sin(mag/2.0)/mag;
+    else
          sin_mag = 0.5;
     end
     rotation = [cos(mag/2.0);sin_mag*W'];
