@@ -9,8 +9,8 @@ N_r  = 13;
 N = length(State.Ekf.mu);
 
 %Noise of input control
-accel_noise = 0.0070;
-ang_noise = 0.0070;
+accel_noise = Param.sigma.accel;
+ang_noise = Param.sigma.ang;
 
 %build jacobian wrt state
 mag = norm(State.Ekf.mu(11:13)*dt);
@@ -105,7 +105,7 @@ function quaternion = qua_est(W,quaternion_prev)
 
 
 
-function dquat_dw = dqwdt_dW(omega, mag, delta_t)
+function dquat_dw = dqwdt_dw(omega, mag, delta_t)
 
   %// trigonometric portion of jacobian
   dquat_dw(1, 1) = (-delta_t / 2.0) * (omega(1) / mag) * sin(mag * delta_t / 2.0);
