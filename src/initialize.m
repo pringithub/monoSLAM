@@ -59,3 +59,4 @@ State.Ekf.iR = 1:13; % vector containing camera state
 State.Ekf.dimL = 6; %dimension of landmark
 State.Ekf.nL = 0; %number of landmarks in state vector
 State.Ekf.iM = []; % dimL*nL vector containing map indices
+State.Ekf.iL = {}; %cell aray containing index of landmark i
