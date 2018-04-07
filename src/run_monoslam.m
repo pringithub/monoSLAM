@@ -3,6 +3,7 @@
 
 function run_monoslam(numSteps, pauseLen)
 
+clear global Param State Data
 
 global Param;
 global State;
@@ -24,17 +25,13 @@ end
 initialize();
 
 % for trajectory
-num_images        = Param.frame.end_id;
-mu_history        = cell(1, num_images); 
+num_images        = Param.img.end_id;
+mu_history        = zeros(State.Ekf.dimR, num_images); 
 Sigma_history     = cell(1, num_images);
-predMu_history    = cell(1, num_images);
+predMu_history    = zeros(State.Ekf.dimR, num_images);
 predSigma_history = cell(1, num_images);
 prediction_times  = zeros(1, num_images);
 update_times      = zeros(1, num_images);
-
-Param.frame.dir = '../data/dataset1/color';
-
-Param.visualize = true;
 
 
 % ---------------------------------------------------------------------
@@ -49,22 +46,23 @@ if Param.makeVideo
     open(vo);
 end
 
-Param.do_save = true;
-Param.do_visualize = true;
-
+Param.do_save = false;
+Param.visualize = true;
+IMAGE_FIGURE = 1;
+TRAJ_3D_FIGURE = 2;
 
 
 % ---------------------------------------------------------------------
 % MonoSLAM Iterations
 % ---------------------------------------------------------------------
 
-State.Ekf.img = getframe( Param.frame.init_id );
+State.Ekf.img = get_frame( Param.img.init_id );
 
-for t = 2 : Param.frame.stride : num_images % why start at 2????????
+for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % detect new landmarks, delete inappropriate landmarks from image
-    map_management();
+%    map_management();
     
     
     % control input
@@ -75,13 +73,13 @@ for t = 2 : Param.frame.stride : num_images % why start at 2????????
     % EKF predict state
     motion_prediction( u, Param.dt );
     %
-    predMu_history{t}    = Param.Ekf.mu;
-    predSigma_history{t} = Param.Ekf.Sigma(1:3,1:3);
+    predMu_history(:,t)  = State.Ekf.mu;
+    predSigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     
     
     % measurement prediction
     % : compute zhat
-    measurement_prediction();
+%    measurement_prediction();
     
     
     % In original MonoSLAM, need to warp landmark templates 
@@ -91,20 +89,40 @@ for t = 2 : Param.frame.stride : num_images % why start at 2????????
     State.Ekf.img = get_frame(t);
     
     
-    % get measuremtn
-    feature_matching(); % skeleton ...
+    % get measurement
+%    feature_matching(); % skeleton ...
     
     
     % update camera pose and landmark positions
-    observation_update();
+%    observation_update();
     %
-    mu_history{t}    = Param.Ekf.mu;
-    Sigma_history{t} = Param.Ekf.Sigma(1:3,1:3);
+    mu_history(:,t)  = State.Ekf.mu;
+    Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     
+    
+    if Param.visualize
+        if (mod(t,10)==1)
+            %{
+            figure(IMAGE_FIGURE)
+            imshow(State.Ekf.img);
+            hold on
+            landmarks = 0; % change this to something !!!!!!!!!!!!!!!!!
+            hold off
+            figure(TRAJ_3D_FIGURE)
+            plot_trajectory_and_landmarks(mu_history,landmarks)
+            %}
+            figure(IMAGE_FIGURE)
+            subplot(1,2,1)
+            imshow(State.Ekf.img);
+            subplot(1,2,2)
+            landmarks = 0;
+            plot_trajectory_and_landmarks(mu_history(1:3,:),landmarks)
+        end
+    end
     
     
     % record
-    % drawnow;
+    drawnow;
     % record video
     if Param.makeVideo
         F = getframe(gcf);

@@ -11,7 +11,8 @@ Param.img.prefix = ''; %prefix
 Param.img.ext = 'png'; %image type
 Param.img.rate = 1/30; %image frame rate
 Param.img.trajectory = ''; %ground truth
-Param.img.num = 604; %number of images in directory
+Param.img.init_id = 1;
+Param.img.end_id = 604; %number of images in directory
 Param.img.stride = 1; %image process speed
 
 %init params wrt to camera
@@ -56,6 +57,9 @@ State.Ekf.Sigma = diag([eps eps eps eps eps eps eps ...
 
 %State parameters
 State.Ekf.iR = 1:13; % vector containing camera state
+State.Ekf.dimR = 13;
 State.Ekf.dimL = 6; %dimension of landmark
 State.Ekf.nL = 0; %number of landmarks in state vector
 State.Ekf.iM = []; % dimL*nL vector containing map indices
+
+

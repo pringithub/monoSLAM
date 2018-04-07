@@ -1,4 +1,4 @@
-function motion_model(u,dt)
+function motion_prediction(u,dt)
 % EKF-SLAM prediction for Monocular vision motion model
 
 global Param;
@@ -14,7 +14,7 @@ ang_noise = Param.sigma.ang;
 
 %build jacobian wrt state
 mag = norm(State.Ekf.mu(11:13)*dt);
-unit = [mag;State.Ekf.mu(11:13)*dt/mag)];
+unit = [mag; State.Ekf.mu(11:13)*dt/mag];
 quat = State.Ekf.mu(4:7);
 W = State.Ekf.mu(11:13);
 
@@ -84,18 +84,18 @@ State.Ekf.mu(4:7) = quat_est(State.Ekf.mu(11:13)*dt,State.Ekf.mu(4:7));
 
 
 
-function quaternion = qua_est(W,quaternion_prev)
-    mag = (sum(W.^2)).^.5;
+function quaternion = quat_est(omega,quaternion_prev)
+    mag = (sum(omega.^2)).^0.5;
     if (mag ~= 0) 
         sin_mag = sin(mag/2.0)/mag;
     else
          sin_mag = 0.5;
     end
-    rotation = [cos(mag/2.0);sin_mag*W'];
+    rotation = [cos(mag/2.0);sin_mag*omega];
     a = quaternion_prev(1); 
     b = quaternion_prev(2); 
     c = quaternion_prev(3); 
-    d = quaternion_prev(4);                                                           quaternion_prev(4);
+    d = quaternion_prev(4);
     quaternion_sqw = [a,-b,-c,-d;
                       b, a,-d, c;
                       c, d, a,-b;
@@ -111,7 +111,7 @@ function dquat_dw = dqwdt_dw(omega, mag, delta_t)
   dquat_dw(1, 1) = (-delta_t / 2.0) * (omega(1) / mag) * sin(mag * delta_t / 2.0);
   dquat_dw(1, 2) = (-delta_t / 2.0) * (omega(2) / mag) * sin(mag * delta_t / 2.0);
   dquat_dw(1, 3) = (-delta_t / 2.0) * (omega(3) / mag) * sin(mag * delta_t / 2.0);
-  dquat_dw(2, 1) = delta_t / 2.0) * omega(1)^2 / (mag^2) ...
+  dquat_dw(2, 1) = (delta_t / 2.0) * omega(1)^2 / (mag^2) ...
                     * cos(mag* delta_t / 2.0) ...
                     + (1.0 / mag) * (1.0 - (omega(1)^2) / (mag^2))...
                     * sin(mag * delta_t / 2.0);
