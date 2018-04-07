@@ -9,8 +9,8 @@ N_r  = 13;
 N = length(State.Ekf.mu);
 
 %Noise of input control
-accel_noise = 0.0070;
-ang_noise = 0.0070;
+accel_noise = Param.sigma.accel;
+ang_noise = Param.sigma.ang;
 
 %build jacobian wrt state
 mag = norm(State.Ekf.mu(11:13)*dt);
