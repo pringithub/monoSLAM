@@ -14,7 +14,7 @@ ang_noise = 0.0070;
 
 %build jacobian wrt state
 mag = norm(State.Ekf.mu(11:13)*dt);
-unit = [mag;State.Ekf.mu(11:13)*dt/mag);
+unit = [mag;State.Ekf.mu(11:13)*dt/mag)];
 quat = State.Ekf.mu(4:7);
 W = State.Ekf.mu(11:13);
 
@@ -86,17 +86,20 @@ State.Ekf.mu(4:7) = quat_est(State.Ekf.mu(11:13)*dt,State.Ekf.mu(4:7));
 
 function quaternion = qua_est(W,quaternion_prev)
     mag = (sum(W.^2)).^.5;
-    if(mag ~= 0) 
+    if (mag ~= 0) 
         sin_mag = sin(mag/2.0)/mag;
     else
          sin_mag = 0.5;
     end
     rotation = [cos(mag/2.0);sin_mag*W'];
-    a = quaternion_prev(1); b = quaternion_prev(2); c = quaternion_prev(3); d =                                                            quaternion_prev(4);
+    a = quaternion_prev(1); 
+    b = quaternion_prev(2); 
+    c = quaternion_prev(3); 
+    d = quaternion_prev(4);                                                           quaternion_prev(4);
     quaternion_sqw = [a,-b,-c,-d;
-    b, a,-d, c;
-    c, d, a,-b;
-    d,-c, b, a];
+                      b, a,-d, c;
+                      c, d, a,-b;
+                      d,-c, b, a];
 
     quaternion = quaternion_sqw*rotation;
 
