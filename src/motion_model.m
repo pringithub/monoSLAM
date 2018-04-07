@@ -9,8 +9,8 @@ N_r  = 13;
 N = length(State.Ekf.mu);
 
 %Noise of input control
-accel_noise = ?;
-ang_noise = ?;
+accel_noise = 0.0070;
+ang_noise = 0.0070;
 
 %build jacobian wrt state
 mag = norm(State.Ekf.mu(11:13)*dt);
@@ -50,7 +50,7 @@ M = blkdiag(var_accel,var_ang);
 
 dr_dV = eye(3)*dt;
 dv_dV = eye(3);
-dq_dW = dq_dw;;
+dq_dW = dq_dw;
 dw_dW = eye(3);
 
 V = [ dr_dV,   zeros(3);
@@ -77,7 +77,7 @@ State.Ekf.mu(11:13) = State.Ekf.mu(11:13) + u(4:6);
 State.Ekf.mu(1:3) = State.Ekf.mu(1:3) + State.Ekf.mu(8:10)*dt;
 
 %quaternion
-State.Ekf.mu(4:7) = quat_est(State.Ekf.mu(11:13)*dt,State.Ekf.mu(4:7))
+State.Ekf.mu(4:7) = quat_est(State.Ekf.mu(11:13)*dt,State.Ekf.mu(4:7));
 
 
 
@@ -107,7 +107,7 @@ function dquat_dw = dqwdt_dW(omega, mag, delta_t)
   %// trigonometric portion of jacobian
   dquat_dw(1, 1) = (-delta_t / 2.0) * (omega(1) / mag) * sin(mag * delta_t / 2.0);
   dquat_dw(1, 2) = (-delta_t / 2.0) * (omega(2) / mag) * sin(mag * delta_t / 2.0);
-  dqquat_dw(1, 3) = (-delta_t / 2.0) * (omega(3) / mag) * sin(mag * delta_t / 2.0);
+  dquat_dw(1, 3) = (-delta_t / 2.0) * (omega(3) / mag) * sin(mag * delta_t / 2.0);
   dquat_dw(2, 1) = delta_t / 2.0) * omega(1)^2 / (mag^2) ...
                     * cos(mag* delta_t / 2.0) ...
                     + (1.0 / mag) * (1.0 - (omega(1)^2) / (mag^2))...
