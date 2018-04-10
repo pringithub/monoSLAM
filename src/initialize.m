@@ -76,7 +76,7 @@ State.Ekf.init_t = [];
 State.Ekf.init_z = {};
 State.Ekf.init_x = {};
 
-%Map Management parameters
+% Map Management parameters
 State.Ekf.status = [];
 State.Ekf.matched = [];
 State.Ekf.match_attempts = [];
