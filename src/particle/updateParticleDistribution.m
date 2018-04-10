@@ -1,39 +1,38 @@
 %% Update particle distribution of given feature
 function updateParticleDistribution(LandmarkId, posInFrame)
-    global particleId;
-    global particlePosMatrix;
-    global SigmaFrame;
-    global particleProbMatrix;
-
-    index = find(particleId == LandmarkId);
+    global State;
+    global Param;
 
     %Update each particle
     for i = 1:100
-        particlePos = (particlePosMatrix(i,3*index-2:3*index))'; % in form [x;y;z] wrt world
+        origin = State.Ekf.iM(1:3,LandmarkId);
+        direction = Param2WorldCoord(State.Ekf.iM(4:5,LandmarkId));
+        
+        particlePos = origin + direction * 1/i; % in form [x;y;z] wrt world
         particleInFrame = projection(particlePos);
-        particleProbMatrix(i, index) = particleProbMatrix(i, index) * normpdf(posInFrame-particleInFrame, 0, SigmaFrame);
+        State.P.featureProbMatrix(i, index) = State.P.featureProbMatrix(i, index) * normpdf(posInFrame-particleInFrame, 0, SigmaFrame);
         
     end
     
     %normalize weight
-    particleProbMatrix(:, index) = particleProbMatrix(:, index)/sum(particleProbMatrix(:, index));
+    State.P.featureProbMatrix(:, index) = State.P.featureProbMatrix(:, index)/sum(State.P.featureProbMatrix(:, index));
     
     %resample
-    resample();
+    resample(LandmarkId);
     
 end
 
-function resample()
-    global particleProbMatrix;
-    global particlePosMatrix;
+function resample(LandmarkId)
+    global State;
+    global Param;
 
     x_new = [];
     w_new = [];
     c = zeros(100,1);
     u = zeros(100,1);
-    c(1) = particleProbMatrix(1, index);
+    c(1) = State.P.featureProbMatrix(index,1);% m*100    
     for i = 2:100
-        c(i) = c(i-1) + particleProbMatrix(i, index);
+        c(i) = c(i-1) + State.P.featureProbMatrix(LandmarkId,i);
     end
     u(1) = unifrnd(0,1/numParticle);
     i = 1;
@@ -42,11 +41,12 @@ function resample()
         while u(j) > c(i)
             i = i+1;
         end
-        x_new = [x_new; particlePosMatrix(i,3*index-2:3*index)];
-        w_new = [w_new; 1/100];
+        x_new = [x_new State.P.featureInverseDepth(LandmarkId,i)]; %m*100
+        %x_new = [x_new; particlePosMatrix(i,3*index-2:3*index)];
+        w_new = [w_new 1/100];
         u(j+1) = u(j) + 1/100;
     end
     
-    particlePosMatrix(:, 3*index-2:3*index) = x_new;
-    particleProbMatrix(:, index) = w_new;
+    State.P.featureInverseDepth(LandmarkId,:) = x_new;
+    State.P.featureProbMatrix(LandmarkId,:) = w_new;
 end

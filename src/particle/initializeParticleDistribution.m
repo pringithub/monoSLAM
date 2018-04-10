@@ -2,11 +2,19 @@
 %% This function initialize a particle distribution of a new feature, each distribution is a 100*3 submatrix
 % Input:
 %   - LandmarkId
-%   - 2D position of the landmark in current frame
-function initializeParticleDistribution(LandmarkId, posInImage)
+%   - LandmarkPosition: [x0,y0,z0, theta, phi, rho]'
+
+% THIS FUNCTION ALWAYS ASSUMES THAT YOU ARE INITIALING LANDMARK n RIGHT AFTER [1,2,3, ..., n-1]
+
+function initializeParticleDistribution(LandmarkId, LandmarkPosition)
     global particleId;     % recording m particles
-    global particlePosMatrix;    % Position matrix of 100*m
-    global particleProbMatrix;   % Probability matrix of 100*m
+    
+    % deprecated
+    %global particlePosMatrix;    % Position matrix of 100*m
+    
+    global State;
+    global Param;
+    
     
 
     if (isempty(find(particleId == LandmarkId,1)))
@@ -14,21 +22,18 @@ function initializeParticleDistribution(LandmarkId, posInImage)
         pause;
     end
     
-    %unit direction vector
-    u = recover(posInImage);
+    v = Param2WorldCoord(LandmarkPosition(4:5));
+    
     
     %Initialize with 100 particles, uniform distribution between 0.5 to 5m
     %away from camera.
     newProb = ones(100,1)/100;
-    newPos = zeros(100,3);
-    newPos(:,1) = linespace(State.Ekf.mu(1)+0.5*u(1), State.Ekf.mu(1)+5*u(1), 100);
-    newPos(:,2) = linespace(State.Ekf.mu(2)+0.5*u(2), State.Ekf.mu(2)+5*u(2), 100);
-    newPos(:,3) = linespace(State.Ekf.mu(3)+0.5*u(3), State.Ekf.mu(3)+5*u(3), 100);
     
-    
-    particleId = [particleId; LandmarkId];
-    particlePosMatrix = [particlePos; newPos]
-    particleProbMatrix = [particleMatrix newProb];
+    %State.P.particleId = [State.P.particleId; LandmarkId];
+    %.P.featureCameraOrigin = [State.P.featureCameraOrigin; LandmakrPosition(1:3)'];
+    %State.P.featureDirectionVector = [State.P.featureDirectionVector; v'];
+    State.P.featureInverseDepth = [State.P.featureInverseDepth; State.P.initFeatureInverseDepth];
+    State.P.featureProbMatrix = [State.P.featureProbMatrix; newProb];
 end
 
 

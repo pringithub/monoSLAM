@@ -1,40 +1,26 @@
 %% This function is the main function of Landmark initialization part
 
 % Inputs:
-%     - a vector of all features detected in current frame      n*1 matrix
-%     - their corresponding coordinates in the image            n*2 matrix
+%     - feature's corresponding coordinates in the image            cell of 2*1
+%     position, for example {[100;100], NaN, [300;100]}
 
-function UpdateParticle(featureIdVector, featurePosMatrix)
+
+% every feature must be initialed when this functing is begin called
+function UpdateParticle(posInFrame)
 global State;
-global particleId;
+global Param;
 
-numFeaturesDetected = length(featureIdVector);
 
-for i = 1:numFeaturesDetected
-    
-    currentId = featureIdVector(i);
-    
+for i = 1:State.Ekf.nL
     % If current feature is already being used by the EKF system, ignore
     % and process the next feature
-    if (~isempty(find(State.EKf.landmarkVector==currentId,1)))
-        continue;
-    end
-     
-    % [x; y] position of current feature
-    posInFrame = featurePosMatrix(i,:)';
-    
-    % if current feature is already a candidate in the particle system,
-    % update its position vector.
-    if (~isempty(find(particleId == currentId, 1)))
-        updateParticleDistribution(currentId, posInFrame);
+    if (State.Ekf.individually_compatible(landmarkId) == 1)
         continue;
     end
     
-    % if current feature has never being recorded, initialize it to be
-    % landmark candidate
-    if (isempty(find(particleId == currentId, 1)))
-        initializeParticleDistribution(currentId, posInFrame);
-        continue;
+    % update current feature if it's available in current frame
+    if ~isnan(posInFrame{i})
+        updateParticleDistribution(i, posInFrame{i});
     end
     
 end
