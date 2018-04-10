@@ -22,12 +22,6 @@ rp = randperm(size(st_points,1));
 location = st_points.Location(rp,:);
 nloc = size(location,1);
 
-%to visualize the current image
-if Param.do_visualize
-    figure,
-    imshow(unit8(img));
-    hold on;
-end
 
 %predicted measurement
 zhat = [];

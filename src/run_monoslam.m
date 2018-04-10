@@ -17,6 +17,12 @@ if ~exist('pauseLen','var')
 end
 
 
+addpath('map_management/');
+addpath('particle/');
+addpath('prediction/');
+addpath('update/');
+
+
 % ---------------------------------------------------------------------
 % Initialize Params, Data, State
 % : saves into global Params, State
@@ -62,7 +68,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % detect new landmarks, delete inappropriate landmarks from image
-%    map_management();
+    map_management();
     
     
     % control input
@@ -79,7 +85,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     % measurement prediction
     % : compute zhat
-%    measurement_prediction();
+    measurement_prediction();
     
     
     % In original MonoSLAM, need to warp landmark templates 
@@ -94,7 +100,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % update camera pose and landmark positions
-%    observation_update();
+    observation_update();
     %
     mu_history(:,t)  = State.Ekf.mu;
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);

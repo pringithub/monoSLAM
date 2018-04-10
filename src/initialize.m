@@ -16,17 +16,17 @@ Param.img.end_id = 604; % number of images in directory
 Param.img.stride = 1; % image process speed
 
 % init params wrt to camera
-Param.cam.k1 = 0; 
-Param.cam.k2 = 0;
-Param.cam.fx = 525.0; % focus in x
-Param.cam.fy = 525.0; % focus in y
-Param.cam.Cx = 319.5; % optical center in x
-Param.cam.Cy = 239.5; % optical center in y
-Param.cam.nrows = 480; % image size
-Param.cam.ncols = 640; % image size
-Param.cam.d = 1; % camera delta
-Param.cam.K = [ -Param.cam.fx/Param.cam.d, 0, Param.cam.Cx; 
-                0, -Param.cam.fy/Param.cam.d, Param.cam.Cy; 
+Param.camera.k1 = 0; 
+Param.camera.k2 = 0;
+Param.camera.fx = 525.0; % focus in x
+Param.camera.fy = 525.0; % focus in y
+Param.camera.Cx = 319.5; % optical center in x
+Param.camera.Cy = 239.5; % optical center in y
+Param.camera.nrows = 480; % image size
+Param.camera.ncols = 640; % image size
+Param.camera.d = 1; % camera delta
+Param.camera.K = [ -Param.camera.fx/Param.camera.d, 0, Param.camera.Cx; 
+                0, -Param.camera.fy/Param.camera.d, Param.camera.Cy; 
                 0, 0, 1 ]; % Camera K matrix
 
 % init params wrt map
