@@ -23,7 +23,7 @@ mi = [ cos(phi).*sin(theta) -sin(phi) cos(phi).*cos(theta)]';
 % directional vector from camera center to the landmark
 hrl = r_cw * ( (yi - t_wc) * rho + mi );
 
-% pixel coordinates
+% 2d pixel coordinates
 uv_u = hu( hrl, cam );
 uv_d = distort_fm( uv_u , cam ); % consider the radial distortion
 
