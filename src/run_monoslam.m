@@ -90,7 +90,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % get measurement
-%    feature_matching(); % skeleton ...
+    surf_feature_matching(true); % skeleton ...
     
     
     % update camera pose and landmark positions
