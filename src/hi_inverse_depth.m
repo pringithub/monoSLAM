@@ -17,7 +17,6 @@ theta = yinit(4);
 phi = yinit(5);
 rho = yinit(6);
 
-cphi = cos(phi);
 mi = [ cos(phi).*sin(theta) -sin(phi) cos(phi).*cos(theta)]';
 
 % directional vector from camera center to the landmark
