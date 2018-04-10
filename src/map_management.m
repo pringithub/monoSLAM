@@ -34,7 +34,7 @@ if State.Ekf.nL == 0 % case when initializing
     detect_corners(Param.map.min_nL);    
 else
     if measured < Param.map.min_nL % detect more landmarks if under threshold
-        detect_corners(Param.map.min_nL-measured);
+        corner_detection(Param.map.min_nL-measured);
     end
 end
 
