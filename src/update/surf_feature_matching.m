@@ -59,11 +59,11 @@ for k = 1:State.Ekf.nL
             continue;
     end
     
-    projected = double([cor_points.Location(:,1) + max(1,round(hk(1)-search_reg(1))) - 1, ...
+    uvs = double([cor_points.Location(:,1) + max(1,round(hk(1)-search_reg(1))) - 1, ...
             cor_points.Location(:,2) + max(1,round(hk(2)-search_reg(2))) - 1]);
     
     if surf_flag
-        [new_feature, ~] = extractFeatures( uint8(State.Ekf.img), projected, ...
+        [new_feature, ~] = extractFeatures( uint8(State.Ekf.img), uvs, ...
             'Method', 'SURF', 'BlockSize', 2*sw+1, 'SURFSize', 64);
     else
         new_feature = State.Ekf.patch_matching{k}(:);
@@ -80,8 +80,8 @@ for k = 1:State.Ekf.nL
     State.Ekf.individually_compatible(k) = 0;
     State.Ekf.z{k} = [];
     for i = 1:length(corr)
-        State.Ekf.z{k} = projected(idx(i),:)';
-        if corr(i) > epsilon && is_valid_measurement( projected(idx(i),:) )
+        State.Ekf.z{k} = uvs(idx(i),:)';
+        if corr(i) > epsilon && is_valid_measurement( uvs(idx(i),:) )
             State.Ekf.individually_compatible(k) = 1;
             break;
         end
