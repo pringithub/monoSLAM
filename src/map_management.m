@@ -31,7 +31,7 @@ measured = sum(State.Ekf.individually_compatible);
 % is less than threshold
 
 if State.Ekf.nL == 0 % case when initializing    
-    detect_corners(Param.map.min_nL);    
+    corner_detection(Param.map.min_nL);    
 else
     if measured < Param.map.min_nL % detect more landmarks if under threshold
         corner_detection(Param.map.min_nL-measured);
