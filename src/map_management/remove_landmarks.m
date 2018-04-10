@@ -1,4 +1,4 @@
-function delete_landmarks(idx)
+function remove_landmarks(idx)
 % deletes landmarks from state vector that are inconsistent
 % input: index of landmarks in full state vector that will be deleted
 
