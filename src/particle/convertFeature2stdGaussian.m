@@ -1,16 +1,15 @@
 %% Compute each available feature's standard deviation, and convert the feauture with best-estimated depth distribution to a standard Gaussian one. If no features are good enough, return NaN.
 
-function [landmarkId, mu, sigma] = convert2StandardGaussian(LandmarkId)
-    global particleId;
-    global particlePosMatrix;
-    global particleProbMatrix;
+function [landmarkId, rho, sigma] = convertFeature2stdGaussian(LandmarkId)
+    global State;
+    global Param;
     
     numFeature = length(particleId);
     
     stdv = zeros(numFeature, 1);
     
-    for i = 1:numFeature
-        stdv = std(particleProbMatrix(:,i));
+    for i = 1:1:State.Ekf.nL
+        stdv(i) = std(State.P.featureProbMatrix(i,:));
     end
     
     % set a threshold here.
@@ -23,19 +22,19 @@ function [landmarkId, mu, sigma] = convert2StandardGaussian(LandmarkId)
     bestIndex = find(stdv == min(stdv));
     bestId = particleId(bestIndex);
     
-    mu = 0;
-    cov = zeros(3,3);
+    rho = 0;
+    var = zeros(3,3);
     
     for i = 1:100
-        mu = mu + particlePosMatrix(i,3*bestIndex-2:3*bestIndex)' * particleProbMatrix(i, bestIndex);
+        rho = rho+ State.P.featureInverseDepth(bestIndex, i) * State.P.featureProbMatrix(bestIndex, i);
     end
     
     for i = 1:100
-        emex = particlePosMatrix(i,3*bestIndex-2:3*bestIndex)' - mu;
-        cov = cov + emex*emex' *  particleProbMatrix(i, bestIndex);
+        emex = State.P.featureInverseDepth(bestIndex, i) - rho;
+        var = var + emex*emex' *  State.P.featureProbMatrix(bestIndex, i);
     end
     
     % remove current feature from the system
     
-    [bestId, mu, cov];
+    [bestId, rho, var];
 end
