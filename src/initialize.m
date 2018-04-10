@@ -70,7 +70,7 @@ State.Ekf.H = {}; % Jacobian of observation wrt state
 State.Ekf.S = {}; % Innovation
 State.Ekf.Q = {}; % Covariance
 State.Ekf.patch_matching = {}; % patch corresponding to the current landmark
-State.Ekf.individually_compatible = []; %compatibility test
+State.Ekf.individually_compatible = []; % compatibility test
 
 State.Ekf.init_t = [];
 State.Ekf.init_z = {};
