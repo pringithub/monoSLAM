@@ -1,5 +1,5 @@
 %To detect new features in the image
-%It takes the input the number of features to be detected
+%It takes the input as the number of features to be detected
 
 function uv = corner_detection( num_feat )
 
