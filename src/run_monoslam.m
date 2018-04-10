@@ -113,10 +113,9 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
             %}
             figure(IMAGE_FIGURE)
             subplot(1,2,1)
-            imshow(State.Ekf.img);
+            plot_image_and_features()
             subplot(1,2,2)
-            landmarks = 0;
-            plot_trajectory_and_landmarks(mu_history(1:3,:),landmarks)
+            plot_trajectory_and_landmarks(mu_history(1:3,:)) 
         end
     end
     
