@@ -17,14 +17,13 @@ theta = yinit(4);
 phi = yinit(5);
 rho = yinit(6);
 
-cphi = cos(phi);
 mi = [ cos(phi).*sin(theta) -sin(phi) cos(phi).*cos(theta)]';
 
 % directional vector from camera center to the landmark
 hrl = r_cw * ( (yi - t_wc) * rho + mi );
 
 % 2d pixel coordinates
-uv_u = hu( hrl, cam );
+uv_u = camera_projection( hrl, cam );
 uv_d = distort_fm( uv_u , cam ); % consider the radial distortion
 
 zi = uv_d;
