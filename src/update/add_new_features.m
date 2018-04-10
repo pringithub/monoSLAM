@@ -11,7 +11,7 @@ vd = uv_d(2);
 
 % given the pixel coordinates of detected feature, obtain the 6 parameters
 % describing the robot pose
-[mi,n] = hinv(uv_d);
+[mi,n] = camera_projection(uv_d);
 
 % augment state vector
 State.Ekf.mu = [State.Ekf.mu; mi];
