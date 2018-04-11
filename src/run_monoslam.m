@@ -53,7 +53,7 @@ if Param.makeVideo
 end
 
 Param.do_save = false;
-Param.visualize = false;%true;
+Param.visualize = true;
 IMAGE_FIGURE = 1;
 TRAJ_3D_FIGURE = 2;
 
@@ -122,6 +122,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
             plot_image_and_features()
             subplot(1,2,2)
             plot_trajectory_and_landmarks(mu_history(1:3,:)) 
+            subplot(1,2,1) % for plotting of corners
         end
     end
     

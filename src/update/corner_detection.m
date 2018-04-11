@@ -79,6 +79,7 @@ while count < num_feat
     plot(u,v,'ro','Markersize',10);
     count = count + 1;
 end
+hold off
 
 disp('corner detection is complete');
             
