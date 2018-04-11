@@ -43,7 +43,7 @@ State.Ekf.init_x{ State.Ekf.nL+1 } = State.Ekf.mu( State.Ekf.iR );
 
 % add patch around the given pixel coords
 del_match = Param.patchsize_match;
-State.Ekf.patch_matching{State.Ekf.nL+1} = State.Ekf.I(vd-del_match:vd+del_match, ud-del_match:ud+del_match);
+State.Ekf.patch_matching{State.Ekf.nL+1} = State.Ekf.img(vd-del_match:vd+del_match, ud-del_match:ud+del_match);
 
 % Update number of total landmarks
 State.Ekf.nL = State.Ekf.nL + 1;

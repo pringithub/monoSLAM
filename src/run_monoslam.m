@@ -53,7 +53,7 @@ if Param.makeVideo
 end
 
 Param.do_save = false;
-Param.visualize = true;
+Param.visualize = false;%true;
 IMAGE_FIGURE = 1;
 TRAJ_3D_FIGURE = 2;
 
@@ -79,7 +79,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     % EKF predict state
     motion_prediction( u, Param.dt );
     %
-    predMu_history(:,t)  = State.Ekf.mu;
+    predMu_history(:,t)  = State.Ekf.mu(1:13);
     predSigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     
     
@@ -102,7 +102,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     % update camera pose and landmark positions
     observation_update();
     %
-    mu_history(:,t)  = State.Ekf.mu;
+    mu_history(:,t)  = State.Ekf.mu(1:13);
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     
     

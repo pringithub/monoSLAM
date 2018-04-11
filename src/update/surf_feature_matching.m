@@ -64,7 +64,7 @@ for k = 1:State.Ekf.nL
     
     if surf_flag
         [new_feature, ~] = extractFeatures( uint8(State.Ekf.img), uvs, ...
-            'Method', 'SURF', 'BlockSize', 2*sw+1, 'SURFSize', 64);
+            'Method', 'SURF', 'BlockSize', 2*window_match+1, 'SURFSize', 64);
     else
         new_feature = State.Ekf.patch_matching{k}(:);
     end

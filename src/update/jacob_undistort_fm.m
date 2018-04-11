@@ -2,7 +2,7 @@ function J_undistor = jacob_undistort_fm(cam,uvd)
 
 Cx=cam.Cx; Cy=cam.Cy;
 k1=cam.k1; k2=cam.k2;
-dx=cam.dx; dy=cam.dy;
+dx=cam.d; dy=cam.d;
 
 ud=uvd(1); vd=uvd(2);
 

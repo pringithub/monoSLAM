@@ -11,7 +11,7 @@ fv = -cam.K(2,2);
 u0  =  cam.K(1,3);
 v0  =  cam.K(2,3);
 
-uv = undistort_fm( uvd, cam );
+uv = undistort( uvd, cam );
 u = uv(1); v = uv(2);
 
 xr = x(1:3); % camera center coord at the first observation of the landmark

@@ -6,8 +6,8 @@ Cx = cam.Cx;
 Cy = cam.Cy;
 k1 = cam.k1;
 k2 = cam.k2;
-dx = cam.dx;
-dy = cam.dy;
+dx = cam.d; %.dx
+dy = cam.d; %.dy
 
 uv_u = zeros(2,1);
 % Correction

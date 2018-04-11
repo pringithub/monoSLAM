@@ -26,12 +26,12 @@ for i = 1:nL
               [cos(phi).*sin(theta), -sin(phi), cos(phi).*cos(theta)]' );  
     
     % projective camera model
-    landmark_projection = camera_projection( dir_vec, cam_params );
+    landmark_projection = camera_projection( dir_vec );
     
     % radial distortion
-    zhat(:,i) = distort_fm( landmark_projection, cam_params );
+    zhat(:,i) = distort_fm( landmark_projection );
     
-    if is_valid_measurement(zhat(:,i)) == False
+    if is_valid_measurement(zhat(:,i)) == false
         State.Ekf.h{i} = []; 
         State.Ekf.H{i} = [];
         State.Ekf.Q{i} = [];

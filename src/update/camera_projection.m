@@ -1,11 +1,13 @@
 % Calculate the projection of yi (in the camera reference)
-function projection = camera_projection( l_i, cam_params)
+function projection = camera_projection( l_i )
 
-Cx = cam_params.Cx;
-Cy = cam_params.Cy;
-f  = cam_params.f;
-x_width = 1/cam_params.dx;
-y_width = 1/cam_params.dy;
+global Param;
+
+Cx = Param.camera.Cx;
+Cy = Param.camera.Cy;
+f  = Param.camera.fx; % f = fx = fy 
+x_width = 1/Param.camera.d; %camera.dx
+y_width = 1/Param.camera.d; %camera.dy
 
 projection = zeros( 2, size( l_i, 2 ) );
 

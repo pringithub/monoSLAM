@@ -23,7 +23,7 @@ mi = [ cos(phi).*sin(theta) -sin(phi) cos(phi).*cos(theta)]';
 hrl = r_cw * ( (yi - t_wc) * rho + mi );
 
 % 2d pixel coordinates
-uv_u = camera_projection( hrl, cam );
-uv_d = distort_fm( uv_u , cam ); % consider the radial distortion
+uv_u = camera_projection( hrl );
+uv_d = distort_fm( uv_u ); % consider the radial distortion
 
 zi = uv_d;

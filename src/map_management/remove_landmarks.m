@@ -24,7 +24,7 @@ while ~isempty(idx)
     % Remove landmark from all other State parameters
     State.Ekf.iM(i) = [];
     State.Ekf.iL(i) = [];
-    State.Ekf.sL(i) = [];
+%    State.Ekf.sL(i) = [];
     State.Ekf.z(i) = [];
     State.Ekf.h(i) = [];
     State.Ekf.H(i) = [];

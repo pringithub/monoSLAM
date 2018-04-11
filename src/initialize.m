@@ -20,10 +20,13 @@ Param.camera.k1 = 0;
 Param.camera.k2 = 0;
 Param.camera.fx = 525.0; % focus in x
 Param.camera.fy = 525.0; % focus in y
+Param.camera.f = 525.0; % make it easier
 Param.camera.Cx = 319.5; % optical center in x
 Param.camera.Cy = 239.5; % optical center in y
 Param.camera.nrows = 480; % image size
 Param.camera.ncols = 640; % image size
+Param.camera.dx = 1;
+Param.camera.dy = 1;
 Param.camera.d = 1; % camera delta
 Param.camera.K = [ -Param.camera.fx/Param.camera.d, 0, Param.camera.Cx; 
                 0, -Param.camera.fy/Param.camera.d, Param.camera.Cy; 
@@ -42,7 +45,7 @@ Param.patchsize_match = 24; % patchsize used to match features between images
 
 Param.sigma.accel = 0.0070; % sigma noise for accel input
 Param.sigma.ang = 0.0070; % sigma noise for angular accel input
-Param.sigma.image = 1; % sigma noise for observation
+Param.sigma.image_noise = 1; % sigma noise for observation
 Param.sigma.inverse_depth = 1;
 
 Param.rho_init = 1; % initial inverse depth

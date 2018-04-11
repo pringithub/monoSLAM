@@ -16,7 +16,7 @@ U0 = cam.K(1,3);
 V0 = cam.K(2,3);
 
 % Noise Parameters for image and inverse depth rho
-im_sig = Param.sigma.image;
+im_sig = Param.sigma.image_noise;
 rho_sig = Param.sigma.inverse_depth;
 
 % Quaternion and rotation matrix
