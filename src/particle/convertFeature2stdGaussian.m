@@ -1,12 +1,10 @@
 %% Compute each available feature's standard deviation, and convert the feauture with best-estimated depth distribution to a standard Gaussian one. If no features are good enough, return NaN.
 
-function [landmarkId, rho, sigma] = convertFeature2stdGaussian(LandmarkId)
+function [landmarkId, rho, sigma] = convertFeature2stdGaussian()
     global State;
     global Param;
     
-    numFeature = length(particleId);
-    
-    stdv = zeros(numFeature, 1);
+    stdv = zeros(State.Ekf.nL, 1);
     
     for i = 1:1:State.Ekf.nL
         stdv(i) = std(State.P.featureProbMatrix(i,:));

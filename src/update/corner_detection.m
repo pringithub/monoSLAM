@@ -45,8 +45,8 @@ while count < num_feat
             if isempty(zhat)
                 continue;
             end
-%            plot (zhat(1,i),zhat(2,i), 'g*', 'MarkerSize', 10);
-%            hold on;
+            plot (zhat(1,j),zhat(2,j), 'g*', 'MarkerSize', 10);
+            hold on;
             
             if location(i,1)>= zhat(1,j) - bounding_box ...
                 && location(i,1)<= zhat(1,j) + bounding_box ...
@@ -76,7 +76,7 @@ while count < num_feat
         continue;
     end
     add_new_features(uv);
-%    plot(u,v,'ro','Markersize',10);
+    plot(u,v,'ro','Markersize',10);
     count = count + 1;
 end
 
