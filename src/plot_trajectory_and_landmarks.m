@@ -38,7 +38,7 @@ else
         imshow( imread(img_filename) );
         %
         subplot(1,2,2);
-    	scatter3( mu_history(1,frame), mu_history(2,frame), -mu_history(3,frame), 'k' );
+    	scatter3( mu_history(1,frame), mu_history(2,frame), mu_history(3,frame), 'k' );
         drawnow;
         pause(1/30);
     end
