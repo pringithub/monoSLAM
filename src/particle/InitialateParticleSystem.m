@@ -14,4 +14,5 @@ State.P.featureProbMatrix = [];                       % Probability matrix of m*
 State.P.rhoMean = [];
 State.P.rhoVar = [];
 State.P.validAsLandmark = [];                         % decide whether a landmark is already avalable as a landmark
+State.P.usedAsLandmark = [];
 end
