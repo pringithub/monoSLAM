@@ -48,3 +48,7 @@ State.Ekf.patch_matching{State.Ekf.nL+1} = State.Ekf.img(vd-del_match:vd+del_mat
 % Update number of total landmarks
 State.Ekf.nL = State.Ekf.nL + 1;
 
+
+% MERGE: add to particle
+initializeParticleDistribution(State.Ekf.nL, mi);
+

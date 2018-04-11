@@ -84,4 +84,5 @@ State.Ekf.status = [];
 State.Ekf.matched = [];
 State.Ekf.match_attempts = [];
 
+intitiateParticleSystem();
 
