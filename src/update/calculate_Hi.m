@@ -63,7 +63,8 @@ return
 
 function a = dhu_dhrl( cam_params, cam_pose, yi )
 
-f = cam_params.f;
+fx = cam_params.fx;
+fy = cam_params.fy;
 ku = 1/cam_params.dx;
 kv = 1/cam_params.dy;
 rw = cam_pose( 1:3 );
@@ -78,7 +79,7 @@ hc = Rrw*( (yi(1:3) - rw)*rho + mi );
 hcx = hc(1);
 hcy = hc(2);
 hcz = hc(3);
-a = [-f*ku/(hcz)       0           hcx*f*ku/(hcz^2);
-    0               -f*kv/(hcz)    hcy*f*kv/(hcz^2)];
+a = [-fx*ku/(hcz)       0           hcx*fx*ku/(hcz^2);
+    0               -fy*kv/(hcz)    hcy*fy*kv/(hcz^2)];
 
 return

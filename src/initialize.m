@@ -5,8 +5,11 @@ global Param
 global State
 
 % init params wrt to image
-Param.img.dir = 'data/dataset2/color'; %directory
-Param.img.files = dir(sprintf('%s/r-*.jpg', Param.img.dir));
+Param.img.dir = '../data/our_dataset/';
+fprintf("Using dataset: %s\n",Param.img.dir);
+Param.img.files = dir( sprintf('%s/img*.jpg', Param.img.dir) );
+%Param.img.dir = 'data/dataset2/color'; %directory
+%Param.img.files = dir(sprintf('%s/r-*.jpg', Param.img.dir));
 Param.img.prefix = ''; % prefix
 Param.img.ext = 'png'; % image type
 Param.img.rate = 1/30; % image frame rate
@@ -16,6 +19,8 @@ Param.img.end_id = 604; % number of images in directory
 Param.img.stride = 1; % image process speed
 
 % init params wrt to camera
+%{ 
+old datasets
 Param.camera.k1 = 0; 
 Param.camera.k2 = 0;
 Param.camera.fx = 525.0; % focus in x
@@ -23,11 +28,24 @@ Param.camera.fy = 525.0; % focus in y
 Param.camera.f = 525.0; % make it easier
 Param.camera.Cx = 319.5; % optical center in x
 Param.camera.Cy = 239.5; % optical center in y
-Param.camera.nrows = 480; % image size
+Param.camera.nrows = 360;%480; % image size
 Param.camera.ncols = 640; % image size
 Param.camera.dx = 1;
 Param.camera.dy = 1;
 Param.camera.d = 1; % camera delta
+%}
+Param.camera.k1 = 0.1565; 
+Param.camera.k2 = -1.0125;
+Param.camera.fx = 501.1483; % focus in x
+Param.camera.fy = 499.3758; % focus in y
+%Param.camera.f = 525.; % make it easier
+Param.camera.Cx = 248.6126; % optical center in x
+Param.camera.Cy = 318.2983; % optical center in y
+Param.camera.nrows = 640; % image size
+Param.camera.ncols = 360; % image size
+Param.camera.dx = 26;
+Param.camera.dy = 26;
+Param.camera.d = 26;
 Param.camera.K = [ -Param.camera.fx/Param.camera.d, 0, Param.camera.Cx; 
                 0, -Param.camera.fy/Param.camera.d, Param.camera.Cy; 
                 0, 0, 1 ]; % Camera K matrix
@@ -84,5 +102,5 @@ State.Ekf.status = [];
 State.Ekf.matched = [];
 State.Ekf.match_attempts = [];
 
-intitiateParticleSystem();
+%intitiateParticleSystem();
 

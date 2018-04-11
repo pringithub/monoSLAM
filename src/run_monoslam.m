@@ -36,6 +36,7 @@ mu_history        = zeros(State.Ekf.dimR, num_images);
 Sigma_history     = cell(1, num_images);
 predMu_history    = zeros(State.Ekf.dimR, num_images);
 predSigma_history = cell(1, num_images);
+num_landmarks     = zeros(1, num_images);
 prediction_times  = zeros(1, num_images);
 update_times      = zeros(1, num_images);
 
@@ -65,7 +66,7 @@ TRAJ_3D_FIGURE = 2;
 
 State.Ekf.img = get_frame( Param.img.init_id );
 
-for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
+for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
     
     
     % detect new landmarks, delete inappropriate landmarks from image
@@ -78,7 +79,9 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % EKF predict state
+    tic
     motion_prediction( u, Param.dt );
+    prediction_times(t) = toc;
     %
     predMu_history(:,t)  = State.Ekf.mu(1:13);
     predSigma_history{t} = State.Ekf.Sigma(1:3,1:3);
@@ -101,10 +104,13 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % update camera pose and landmark positions
+    tic
     observation_update();
+    update_times(t) = toc;
     %
     mu_history(:,t)  = State.Ekf.mu(1:13);
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
+    num_landmarks(t) = State.Ekf.nL;
     
     
     disp(t)
@@ -133,7 +139,8 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
         if mod(t, 50) == 0
         save(filename, ...
             'mu_history', 'Sigma_history', ...
-            'predMu_history', 'predSigma_history' );
+            'predMu_history', 'predSigma_history', ...
+            'num_landmarks', 'prediction_times', 'update_times' );
         end
     end
     

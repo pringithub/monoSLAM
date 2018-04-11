@@ -5,13 +5,11 @@
 function plot_trajectory_and_landmarks(mu_history)
 
 global State;
+global Param;
 
 static_or_anim = 1;
 
 
-% comment out lines below if not testing
-Param.img.dir = '../data/dataset1/color/';
-files = dir( sprintf('%s/r-*.jpg', Param.img.dir) );
 
 figure('position', [72 545 900 400])
 subplot(1,2,2);
@@ -23,17 +21,17 @@ view(14,-37)
 title('MonoSLAM Camera Trajectory');
 xlabel('x');ylabel('y');zlabel('z');
 
-for i = 1:State.Ekf.nL
+%for i = 1:State.Ekf.nL
 % plot landmark
-end
+%end
 
 if 0
     scatter3( mu_history(1,:), mu_history(2,:), mu_history(3,:) );
     drawnow;
 else
-    for frame = 1:length(mu_history)
+    for frame = 1:150%length(mu_history)
         subplot(1,2,1);
-        img_filename = sprintf( '%s%s', Param.img.dir, files(frame).name );
+        img_filename = sprintf( '%s%s', Param.img.dir, Param.img.files(frame).name );
         %img = rgb2gray( imread(img_filename) );
         imshow( imread(img_filename) );
         %

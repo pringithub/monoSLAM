@@ -42,13 +42,17 @@ State.Ekf.init_z{ State.Ekf.nL+1 } = uv_d;
 State.Ekf.init_x{ State.Ekf.nL+1 } = State.Ekf.mu( State.Ekf.iR );
 
 % add patch around the given pixel coords
+try
 del_match = Param.patchsize_match;
 State.Ekf.patch_matching{State.Ekf.nL+1} = State.Ekf.img(vd-del_match:vd+del_match, ud-del_match:ud+del_match);
+catch err
+    err
+end
 
 % Update number of total landmarks
 State.Ekf.nL = State.Ekf.nL + 1;
 
 
 % MERGE: add to particle
-initializeParticleDistribution(State.Ekf.nL, mi);
+%initializeParticleDistribution(State.Ekf.nL, mi);
 

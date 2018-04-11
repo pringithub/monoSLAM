@@ -4,7 +4,7 @@ function remove_landmarks(idx)
 
 global State;
 
-dimX = State.Ekf.dimR;
+%dimX = State.Ekf.dimR;
 dimL = State.Ekf.dimL;
 
 % if index vector is not empty then remove index from state vector
