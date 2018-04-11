@@ -45,7 +45,7 @@ while count < num_feat
             if isempty(zhat)
                 continue;
             end
-            plot (zhat(1,i),zhat(2,i), 'g*', 'MarkerSize', 10);
+            plot (zhat(1,j),zhat(2,j), 'g*', 'MarkerSize', 10);
             hold on;
             
             if location(i,1)>= zhat(1,j) - bounding_box ...
