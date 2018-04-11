@@ -52,8 +52,9 @@ if Param.makeVideo
     open(vo);
 end
 
-Param.do_save = false;
-Param.visualize = true;
+Param.save = true;
+Param.visualize = false;
+filename = 'saved_run.mat';
 IMAGE_FIGURE = 1;
 TRAJ_3D_FIGURE = 2;
 
@@ -106,6 +107,8 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     
     
+    disp(t)
+    
     if Param.visualize
         if (mod(t,10)==1)
             %{
@@ -126,6 +129,13 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
         end
     end
     
+    if Param.save
+        if mod(t, 50) == 0
+        save(filename, ...
+            'mu_history', 'Sigma_history', ...
+            'predMu_history', 'predSigma_history' );
+        end
+    end
     
     % record
     drawnow;

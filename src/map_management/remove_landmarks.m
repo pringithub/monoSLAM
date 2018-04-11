@@ -18,8 +18,8 @@ while ~isempty(idx)
     
     for j = i+1:State.Ekf.nL
         State.Ekf.iL{j} = State.Ekf.iL{j} - dimL; % correct indexing of remaining landmarks
+        State.Ekf.iM(iL(end)+1:end) = State.Ekf.iM(iL(end)+1:end) - dimL; % shift landmarks in map oe position over
     end
-    State.Ekf.iM(iL(end)+1:end) = State.Ekf.iM(iL(end)+1:end) - dimL; % shift landmarks in map oe position over
     
     % Remove landmark from all other State parameters
     State.Ekf.iM(i) = [];
