@@ -75,7 +75,7 @@ for k = 1:State.Ekf.nL
     corr_matrix = corrcoef(features);
     [corr, idx] = sort( corr_matrix(1,2:end), 'descend' );
     
-    epsilon = 0.8; % threshold to check the correlation coefficient
+    epsilon = 0.6; % threshold to check the correlation coefficient
     
     State.Ekf.individually_compatible(k) = 0;
     State.Ekf.z{k} = [];
