@@ -14,7 +14,13 @@ function initializeParticleDistribution(LandmarkId, LandmarkPosition)
     
     global State;
     global Param;
+    
+    
 
+    if (isempty(find(particleId == LandmarkId,1)))
+        error('Intialize a feature already in candidates');
+        pause;
+    end
     
     v = Param2WorldCoord(LandmarkPosition(4:5));
     

@@ -23,7 +23,7 @@ function updateParticleDistribution(landmarkId, landmarkPosition, posInFrame)
         dir_vec = R' *( (landmark_i(1:3)-cam_pose(1:3)) * rho + ...
               [cos(phi).*sin(theta), -sin(phi), cos(phi).*cos(theta)]' );  
           
-        particle_projection = camera_projection(dir_vec);
+        particle_projection = camera_projection( dir_vec, cam_params);
         
         SigmaFrame = [1 0; 0 1];
         State.P.featureProbMatrix(i, index) = State.P.featureProbMatrix(i, index) * normpdf(posInFrame-particle_projection, 0, SigmaFrame);

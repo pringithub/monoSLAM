@@ -16,8 +16,8 @@ function checkParticleResult()
         stdv(i) = std(State.P.featureProbMatrix(i,:));
         
         % Not used in Ekf Update
-        if stdv(i) > thres
-            State.Ekf.individually_compatible(i) = 0;
+        if stdv(i) < thres && State.P.validAsLandmark(i) == 0
+            State.P.validAsLandmark(i) = 1;
         end
         
         for j = 1:100
