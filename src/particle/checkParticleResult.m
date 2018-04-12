@@ -7,7 +7,7 @@ function checkParticleResult()
     stdv = zeros(State.Ekf.nL, 1);
     
     % set a threshold here.
-    thres = 0.5;
+    thres = inf;
     
     State.P.rhoMean = zeros(State.Ekf.nL,1);
     State.P.rhoVar = zeros(State.Ekf.nL,1);

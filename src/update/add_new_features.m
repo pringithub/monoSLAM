@@ -54,5 +54,5 @@ State.Ekf.nL = State.Ekf.nL + 1;
 
 
 % MERGE: add to particle
-%initializeParticleDistribution(State.Ekf.nL, mi);
+initializeParticleDistribution(State.Ekf.nL, mi);
 

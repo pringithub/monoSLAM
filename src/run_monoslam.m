@@ -101,8 +101,9 @@ for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
     
     % get measurement
     surf_feature_matching(true); % skeleton ...
-    
-    
+    updateParticle();
+    checkParticleResult();
+
     % update camera pose and landmark positions
     tic
     observation_update();

@@ -38,7 +38,10 @@ while ~isempty(idx)
     State.Ekf.init_z(i) = [];
     State.Ekf.init_x(i) = [];
     State.Ekf.patch_matching(i) = [];
-    
+
+    %remove from particle filter framework
+    removeParticle(i);
+
     % Update landmark count
     State.Ekf.nL = State.Ekf.nL - 1;
     

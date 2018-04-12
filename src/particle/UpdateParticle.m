@@ -6,7 +6,7 @@
 
 
 % every feature must be initialed when this functing is begin called
-function UpdateParticle(posInFrame)
+function updateParticle()
 global State;
 global Param;
 
@@ -18,9 +18,9 @@ for i = 1:State.Ekf.nL
         continue;
     end
     
-    % update current feature if it's available in current frame
-    if ~isnan(posInFrame{i})
-        updateParticleDistribution(i, posInFrame{i});
+    % update current feature if theres a match
+    if State.Ekf.individually_compatible(i) == 1
+        updateParticleDistribution(i, State.Ekf.z{i});
     end
     
 end
