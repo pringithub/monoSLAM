@@ -6,7 +6,7 @@ global State
 
 % init params wrt to image
 Param.img.dir = '../data/our_dataset/';
-fprintf("Using dataset: %s\n",Param.img.dir);
+fprintf('Using dataset: %s\n',Param.img.dir);
 Param.img.files = dir( sprintf('%s/img*.jpg', Param.img.dir) );
 %Param.img.dir = 'data/dataset2/color'; %directory
 %Param.img.files = dir(sprintf('%s/r-*.jpg', Param.img.dir));
