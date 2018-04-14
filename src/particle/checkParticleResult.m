@@ -6,8 +6,7 @@ function checkParticleResult()
     
     stdv = zeros(State.Ekf.nL, 1);
     
-    % set a threshold here.
-    thres = inf;
+    
     
     State.P.rhoMean = zeros(State.Ekf.nL,1);
     State.P.rhoVar = zeros(State.Ekf.nL,1);
@@ -15,10 +14,22 @@ function checkParticleResult()
     for i = 1:1:State.Ekf.nL
         stdv(i) = std(State.P.featureProbMatrix(i,:));
         
+        for j = 1:100
+            State.P.rhoMean(i) = State.P.rhoMean(i) + State.P.featureInverseDepth(i, j) * State.P.featureProbMatrix(i, j);
+        end
+        
+        for j = 1:100
+            emex = State.P.featureInverseDepth(i,j) - State.P.rhoMean(i);
+           State.P.rhoVar(i) = State.P.rhoVar(i) + emex*emex' *  State.P.featureProbMatrix(i, j);
+        end
+        
         % need fix
         % This tag means the landmark is ready to initialize as a new
         % landmark updating
-        if stdv(i) < thres
+        
+        % set a threshold here.
+        thres = inf;
+        if State.P.rhoVar(i) < thres
             State.P.validAsLandmark(i) = 1;
         else
             State.P.validAsLandmark(i) = 0;
@@ -31,15 +42,6 @@ function checkParticleResult()
         
         if State.P.validAsLandmark(i) == 1
             State.P.usedAsLandmark(i) = 1;
-        end
-        
-        for j = 1:100
-            State.P.rhoMean(i) = State.P.rhoMean(i) + State.P.featureInverseDepth(i, j) * State.P.featureProbMatrix(i, j);
-        end
-        
-        for j = 1:100
-            emex = State.P.featureInverseDepth(i,j) - State.P.rhoMean(i);
-           State.P.rhoVar(i) = State.P.rhoVar(i) + emex*emex' *  State.P.featureProbMatrix(i, j);
         end
     end
    

@@ -16,3 +16,5 @@ for i = 1:size( l_i, 2 )
     projection( 2, i ) = Cy - (l_i(2,i)/l_i(3,i))*f*y_width;
 end
 
+end
+

@@ -34,8 +34,10 @@ Param.camera.dx = 1;
 Param.camera.dy = 1;
 Param.camera.d = 1; % camera delta
 %}
-Param.camera.k1 = 0.1565; 
-Param.camera.k2 = -1.0125;
+%Param.camera.k1 = 0.1565; 
+%Param.camera.k2 = -1.0125;
+Param.camera.k1 = 0; 
+Param.camera.k2 = 0;
 Param.camera.fx = 501.1483; % focus in x
 Param.camera.fy = 499.3758; % focus in y
 %Param.camera.f = 525.; % make it easier

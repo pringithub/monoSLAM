@@ -14,7 +14,11 @@ for i = 1:State.Ekf.nL
         for j = 1:1:State.Ekf.nL
             stdv = std(State.P.featureProbMatrix(j,:));
         end
-        fprintf(strcat('matched landmark ', num2str(i), ' has stderr: ', num2str(stdv), '\n'));
+        fprintf(strcat('matched landmark ', num2str(i), ' has var: ', num2str(State.P.rhoVar(i)), 'and mean: ', num2str(State.P.rhoMean(i)), '\n'));
+        
+        %debug msg: just for break point
+        asfdsadfsadfsadf = 0;
+        
     end
     if State.Ekf.individually_compatible(i)
     %if State.P.usedAsLandmark(i)
