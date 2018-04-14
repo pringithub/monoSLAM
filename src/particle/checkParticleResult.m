@@ -15,11 +15,22 @@ function checkParticleResult()
     for i = 1:1:State.Ekf.nL
         stdv(i) = std(State.P.featureProbMatrix(i,:));
         
-        % Not used in Ekf Update
+        % need fix
+        % This tag means the landmark is ready to initialize as a new
+        % landmark updating
         if stdv(i) < thres
             State.P.validAsLandmark(i) = 1;
         else
             State.P.validAsLandmark(i) = 0;
+        end
+        
+        % Set the flag that whether the landmark is used in measurement
+        % update
+        % 1* If it's already in use: keep using it.
+        % 2* If it has never been used, add it to the list
+        
+        if State.P.validAsLandmark(i) == 1
+            State.P.usedAsLandmark = 1;
         end
         
         for j = 1:100

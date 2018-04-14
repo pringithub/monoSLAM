@@ -35,7 +35,7 @@ function initializeParticleDistribution(LandmarkId, LandmarkPosition)
     State.P.featureInverseDepth = [State.P.featureInverseDepth; State.P.initFeatureInverseDepth];
     State.P.featureProbMatrix = [State.P.featureProbMatrix; newProb];
     State.P.validAsLandmark = [State.P.validAsLandmark; 0];
-    State.P.usedAsLandmark = [State.P.validAsLandmark; 0];
+    State.P.usedAsLandmark = [State.P.usedAsLandmark; 0];
 end
 
 
