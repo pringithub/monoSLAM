@@ -4,34 +4,46 @@
 %   - landmarkPosition: pos in world coordinate, in terms of [x0,y0,z0, theta, phi, rho]
 %   - posInFrame: detected pos in current frame
 
-function updateParticleDistribution(landmarkId, landmarkPosition, posInFrame)
+function updateParticleDistribution(landmarkId, posInFrame)
     global State;
     global Param;
     
     cam_pose = State.Ekf.mu(1:13);
     R = q2r(cam_pose(4:7));
+    
+    idx = 13+(landmarkId-1)*State.Ekf.dimL;
+    landmark_i = State.Ekf.mu(idx:idx+State.Ekf.dimL);
 
+    pd = zeros(100,2);
+    rt = zeros(100,1);
     %Update each particle
     for i = 1:100
-        origin = State.Ekf.iM(1:3,landmarkId);
-        direction = Param2WorldCoord(State.Ekf.iM(4:5,landmarkId));
+        %debug msg
+        %fprintf(strcat('iter = ', num2str(i), i, '\n'));
         
-        theta = landmarkPosition(4);
-        phi = landmarkPosition(5);
+        theta = landmark_i(4);
+        phi = landmark_i(5);
         rho = State.P.featureInverseDepth(landmarkId, i);
         
         dir_vec = R' *( (landmark_i(1:3)-cam_pose(1:3)) * rho + ...
-              [cos(phi).*sin(theta), -sin(phi), cos(phi).*cos(theta)]' );  
-          
-        particle_projection = camera_projection( dir_vec, cam_params);
+            [cos(phi).*sin(theta), -sin(phi), cos(phi).*cos(theta)]' ); 
         
-        SigmaFrame = [1 0; 0 1];
-        State.P.featureProbMatrix(i, index) = State.P.featureProbMatrix(i, index) * normpdf(posInFrame-particle_projection, 0, SigmaFrame);
+        particle_projection = distort_fm(camera_projection(dir_vec));
+        
+        rt(i) = rho;
+        pd(i,:) = (posInFrame-particle_projection)';
+        %i
+        %dir_vec
+        %particle_projection
+        %fprintf(strcat('rho ', num2str(rt(i)), 'pd: ', num2str(pd(i)),'\n'));
+        
+        State.P.featureProbMatrix(landmarkId, i) = State.P.featureProbMatrix(landmarkId, i) * normpdf(norm(posInFrame-particle_projection), 0, 1);
         
     end
     
+    
     %normalize weight
-    State.P.featureProbMatrix(:, index) = State.P.featureProbMatrix(:, index)/sum(State.P.featureProbMatrix(:, index));
+    State.P.featureProbMatrix(landmarkId, :) = State.P.featureProbMatrix(landmarkId, :)/sum(State.P.featureProbMatrix(landmarkId, :));
     
     %resample
     resample(landmarkId);
@@ -46,11 +58,11 @@ function resample(LandmarkId)
     w_new = [];
     c = zeros(100,1);
     u = zeros(100,1);
-    c(1) = State.P.featureProbMatrix(index,1);% m*100    
+    c(1) = State.P.featureProbMatrix(LandmarkId,1);% m*100    
     for i = 2:100
         c(i) = c(i-1) + State.P.featureProbMatrix(LandmarkId,i);
     end
-    u(1) = unifrnd(0,1/numParticle);
+    u(1) = unifrnd(0,1/100);
     i = 1;
     
     for j = 1:100

@@ -10,16 +10,14 @@ z = [];
 zhat = [];
 
 for i = 1:State.Ekf.nL
-    %if State.Ekf.individually_compatible(i)
-    % disp debug msg
-%     if State.Ekf.individually_compatible(i)
-%         for j = 1:1:State.Ekf.nL
-%             stdv = std(State.P.featureProbMatrix(j,:));
-%         end
-%         fprintf('matched landmark ' + num2str(i) + ' has stderr: ' + num2str(stdv) );
-%     end
-    
-    if State.P.usedAsLandmark(i)
+    if State.Ekf.individually_compatible(i)
+        for j = 1:1:State.Ekf.nL
+            stdv = std(State.P.featureProbMatrix(j,:));
+        end
+        fprintf(strcat('matched landmark ', num2str(i), ' has stderr: ', num2str(stdv), '\n'));
+    end
+    if State.Ekf.individually_compatible(i)
+    %if State.P.usedAsLandmark(i)
         H = [ H; State.Ekf.H{i} ];
         z = [ z; State.Ekf.z{i} ];
         zhat = [ zhat; State.Ekf.h{i} ];

@@ -30,7 +30,7 @@ function checkParticleResult()
         % 2* If it has never been used, add it to the list
         
         if State.P.validAsLandmark(i) == 1
-            State.P.usedAsLandmark = 1;
+            State.P.usedAsLandmark(i) = 1;
         end
         
         for j = 1:100
