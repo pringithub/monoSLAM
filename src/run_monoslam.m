@@ -65,10 +65,11 @@ TRAJ_3D_FIGURE = 2;
 % ---------------------------------------------------------------------
 
 State.Ekf.img = get_frame( Param.img.init_id );
-
+% State.iter = 1;
+% State.testMatrix = zeros(5, 12);
 for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
     
-    
+    %State.iter = t;
     % detect new landmarks, delete inappropriate landmarks from image
     map_management();
     
@@ -115,6 +116,12 @@ for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
     
     %pause(2);
     disp(t)
+    
+%     if t == 6
+%         disp('save!');
+%         k = State.testMatrix;
+%         save('test.mat', 'k');
+%     end
     
     if Param.visualize
         if (mod(t,10)==1)

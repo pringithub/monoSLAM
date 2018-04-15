@@ -15,4 +15,5 @@ State.P.rhoMean = [];
 State.P.rhoVar = [];
 State.P.validAsLandmark = [];                         % decide whether a landmark is already avalable as a landmark
 State.P.usedAsLandmark = [];
+State.P.firstTimeInit = [];
 end

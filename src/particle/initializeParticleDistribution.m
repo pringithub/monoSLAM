@@ -36,6 +36,7 @@ function initializeParticleDistribution(LandmarkId, LandmarkPosition)
     State.P.featureProbMatrix = [State.P.featureProbMatrix; newProb];
     State.P.validAsLandmark = [State.P.validAsLandmark; 0];
     State.P.usedAsLandmark = [State.P.usedAsLandmark; 0];
+    State.P.firstTimeInit = [State.P.firstTimeInit; 1];
 end
 
 

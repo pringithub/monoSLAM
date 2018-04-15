@@ -37,7 +37,7 @@ function updateParticleDistribution(landmarkId, posInFrame)
         %particle_projection
         %fprintf(strcat('rho ', num2str(rt(i)), 'pd: ', num2str(pd(i)),'\n'));
         
-        State.P.featureProbMatrix(landmarkId, i) = State.P.featureProbMatrix(landmarkId, i) * normpdf(norm(posInFrame-particle_projection), 0, 1);
+        State.P.featureProbMatrix(landmarkId, i) = State.P.featureProbMatrix(landmarkId, i) * normpdf(norm(posInFrame-particle_projection), 0, 10);
         
     end
     

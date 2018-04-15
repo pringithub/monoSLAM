@@ -15,6 +15,7 @@ global State;
 global Param;
 
 
+
 for i = 1:State.Ekf.nL
     % If current feature is already being used by the EKF system, ignore
     % and process the next feature
@@ -23,6 +24,11 @@ for i = 1:State.Ekf.nL
 %     end
     
     % update current feature if theres a match
+    if State.P.firstTimeInit(i) == 1
+        State.P.firstTimeInit(i) = 0;
+        continue;
+    end
+    
     if State.Ekf.individually_compatible(i) == 1
         fprintf(strcat('Update particle: ', num2str(i),'\n'));
         updateParticleDistribution(i, State.Ekf.z{i});
