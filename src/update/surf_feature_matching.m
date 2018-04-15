@@ -51,6 +51,9 @@ for k = 1:State.Ekf.nL
     c2 = min(round(hk(1)+search_reg(1)),size(State.Ekf.img,2));
     
     fin_region = Img( r1:r2, c1:c2);
+    if (r2-r1 >=4) && (c2-c1 >= 4) 
+    cor_points = detectMinEigenFeatures(uint8(fin_region));
+    end
     cor_points = detectMinEigenFeatures(uint8(fin_region));
     
     if isempty(cor_points)
