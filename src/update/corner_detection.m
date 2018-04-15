@@ -15,7 +15,7 @@ count = 0;
 bounding_box = 30;
 
 %taking the complete image and detecting the strongest corner points
-cornerpoints = detectMinEigenFeatures(uint8(img));
+cornerpoints = detectMinEigenFeatures(uint8(img(5:end-5,5:end-5,:)));
 st_points = cornerpoints.selectStrongest(200);
 %random selection of landmark candidates
 rp = randperm(size(st_points,1));
