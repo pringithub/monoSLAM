@@ -113,7 +113,7 @@ for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     num_landmarks(t) = State.Ekf.nL;
     
-    pause(2);
+    %pause(2);
     disp(t)
     
     if Param.visualize
