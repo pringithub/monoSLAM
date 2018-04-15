@@ -4,9 +4,9 @@ global State;
 
 for i = 1:State.Ekf.nL
     % for every landmark increment match attempts
-    if ~isempty( State.Ekf.h{i} )
+%    if ~isempty( State.Ekf.h{i} )
         State.Ekf.match_attempts(i) = State.Ekf.match_attempts(i) + 1;
-    end
+%    end
     if State.Ekf.individually_compatible(i)
         State.Ekf.matched(i) = State.Ekf.matched(i) + 1;
     end

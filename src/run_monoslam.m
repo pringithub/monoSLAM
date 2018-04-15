@@ -66,7 +66,7 @@ TRAJ_3D_FIGURE = 2;
 
 State.Ekf.img = get_frame( Param.img.init_id );
 
-for t = 1 : Param.img.stride : 203%num_images % other guys' starts at 2????????
+for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % detect new landmarks, delete inappropriate landmarks from image

@@ -15,7 +15,7 @@ Param.img.ext = 'png'; % image type
 Param.img.rate = 1/30; % image frame rate
 Param.img.trajectory = ''; % ground truth
 Param.img.init_id = 1;
-Param.img.end_id = 604; % number of images in directory
+Param.img.end_id = length(Param.img.files); % number of images in directory
 Param.img.stride = 1; % image process speed
 
 % init params wrt to camera
@@ -34,8 +34,8 @@ Param.camera.dx = 1;
 Param.camera.dy = 1;
 Param.camera.d = 1; % camera delta
 %}
-Param.camera.k1 = 0.1565; 
-Param.camera.k2 = -1.0125;
+Param.camera.k1 = 0;%0.1565; 
+Param.camera.k2 = 0;%1.0125;
 Param.camera.fx = 501.1483; % focus in x
 Param.camera.fy = 499.3758; % focus in y
 %Param.camera.f = 525.; % make it easier
