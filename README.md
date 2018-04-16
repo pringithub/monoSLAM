@@ -1,6 +1,6 @@
-SLAM for Cyclopes: A MonoSLAM Tutorial
+# SLAM for Cyclopes: A MonoSLAM Tutorial
 
-Main functions(located in src folder):
+### Main functions(located in src folder):
 
 1.) run_monoslam(): Processes image frames and implement monoSLAM algorithm. Saves state and covariance history in file titled 'saved_run.mat'
 
@@ -12,14 +12,14 @@ Main functions(located in src folder):
 
 5.) plot_image_and_features: Needs to be called after run_monoslam(). Takes values in saved_run.mat and plots the image frame with superimposed detected features.
 
-Data sets(located in data folder)
+### Data sets (located in data folder)
 
 1.) The first data set was generated to test a straight line path for the camera (rotation limited)
 
 2.) The second data set was generated to test an upside-down U path for the camera (rotation limited)
 
-Papers(located in paper folder)
+### Papers(located in paper folder)
 
-Available here is Davison's original paper on MonoSLAM accompanied by a tutorial that is available in his website. Link to website is provided below;
+###### Available here is Davison's original paper on MonoSLAM accompanied by a tutorial that is available in his website. Link to website is provided below;
  
 http://www.doc.ic.ac.uk/~ajd/Scene/download.html
