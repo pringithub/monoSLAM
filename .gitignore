@@ -2,5 +2,6 @@ TestSeqMonoSLAM
 *.tar.gz
 data/dataset*
 data/*.zip
+data/*.mp4
 *.m~
 .DS_Store
