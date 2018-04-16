@@ -39,6 +39,7 @@ predSigma_history = cell(1, num_images);
 num_landmarks     = zeros(1, num_images);
 prediction_times  = zeros(1, num_images);
 update_times      = zeros(1, num_images);
+loop_times        = zeros(1, num_images);
 
 
 % ---------------------------------------------------------------------
@@ -68,6 +69,7 @@ State.Ekf.img = get_frame( Param.img.init_id );
 
 for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
+    tic
     
     % detect new landmarks, delete inappropriate landmarks from image
     map_management();
@@ -79,9 +81,9 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % EKF predict state
-    tic
+%    tic
     motion_prediction( u, Param.dt );
-    prediction_times(t) = toc;
+%    prediction_times(t) = toc;
     %
     predMu_history(:,t)  = State.Ekf.mu(1:13);
     predSigma_history{t} = State.Ekf.Sigma(1:3,1:3);
@@ -100,18 +102,19 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
     
     
     % get measurement
+%    tic
     surf_feature_matching(true); % skeleton ...
     
     
     % update camera pose and landmark positions
-    tic
     observation_update();
-    update_times(t) = toc;
+%    update_times(t) = toc;
     %
     mu_history(:,t)  = State.Ekf.mu(1:13);
     Sigma_history{t} = State.Ekf.Sigma(1:3,1:3);
     num_landmarks(t) = State.Ekf.nL;
     
+    loop_times(t) = toc;
     
     disp(t)
     
@@ -140,7 +143,7 @@ for t = 1 : Param.img.stride : num_images % other guys' starts at 2????????
         save(filename, ...
             'mu_history', 'Sigma_history', ...
             'predMu_history', 'predSigma_history', ...
-            'num_landmarks', 'prediction_times', 'update_times' );
+            'num_landmarks', 'prediction_times', 'update_times', 'loop_times' );
         end
     end
     

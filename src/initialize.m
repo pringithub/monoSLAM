@@ -5,7 +5,7 @@ global Param
 global State
 
 % init params wrt to image
-Param.img.dir = '../data/our_dataset/';
+Param.img.dir = '../data/upsidedownU_dataset/';
 fprintf("Using dataset: %s\n",Param.img.dir);
 Param.img.files = dir( sprintf('%s/img*.jpg', Param.img.dir) );
 %Param.img.dir = 'data/dataset2/color'; %directory
@@ -61,8 +61,8 @@ Param.updateMethod = 'batch'; % update method of observation model
 
 Param.patchsize_match = 24; % patchsize used to match features between images
 
-Param.sigma.accel = 0.0070; % sigma noise for accel input
-Param.sigma.ang = 0.0070; % sigma noise for angular accel input
+Param.sigma.accel = 0.00070; % sigma noise for accel input
+Param.sigma.ang = 0.00070; % sigma noise for angular accel input
 Param.sigma.image_noise = 1; % sigma noise for observation
 Param.sigma.inverse_depth = 1;
 

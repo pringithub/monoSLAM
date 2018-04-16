@@ -2,7 +2,7 @@
 
 % mu: 13xn
 % landmarks: nx3
-function plot_trajectory_and_landmarks(static_or_anim)
+function plot_trajectory_and_landmarks(mu_history,static_or_anim)
 
 global State;
 global Param;
@@ -35,7 +35,7 @@ if static_or_anim
     scatter(mu_history(1,:),mu_history(3,:), 'k')
     xlabel('x');ylabel('z');
     %
-    subplot(1,4,4);
+    subplot(4,1,4);
     scatter(mu_history(2,:),mu_history(3,:), 'k')
     xlabel('y');ylabel('z');
     %
