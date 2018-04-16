@@ -1,6 +1,6 @@
 TestSeqMonoSLAM
 *.tar.gz
-data
+data/dataset*
+data/*.zip
 *.m~
-data/
 .DS_Store
